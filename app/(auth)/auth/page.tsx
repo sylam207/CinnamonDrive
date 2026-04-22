@@ -1,7 +1,9 @@
+import Auth from "@/components/Auth";
+
 const AuthPage = () => {
     return (
-        <div>
-            <span>Auth Page</span>
+        <div className="h-full">
+            <Auth />
         </div>
     );
 };
