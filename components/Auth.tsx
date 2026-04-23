@@ -4,6 +4,8 @@ import { useState } from "react";
 import CustomInput from "./CustomInput";
 import { Mail, UserRoundPen } from "lucide-react";
 import ContinueButton from "./ContinueButton";
+import { isValidEmail } from "@/lib/utils";
+import { createAccount } from "@/lib/appwrite/user.actions";
 
 const Auth = () => {
 
@@ -14,6 +16,8 @@ const Auth = () => {
     const [email, setEmail] = useState("");
     const [tabValue, setTabValue] = useState("signIn");
     const [loading, setLoading] = useState(false);
+    const [errorMessage,  setErrorMessage] = useState("");
+    const [accountId, setAccountId] = useState("");
 
 
     const handleTabValueChange = (value: string) => {
@@ -29,9 +33,36 @@ const Auth = () => {
         setEmail(e.target.value);
     };
 
-    const handleContinueClick = () => {
+    const handleContinueClick = async () => {
+        const {fullName, registerEmail} = formData || {};
 
+        if (!fullName && tabValue === "signUp") {
+            setErrorMessage("Full name is required");
+            return;
+        }
+
+        if (!isValidEmail(registerEmail) && tabValue === "signUp") {
+            setErrorMessage("Invalid email address");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const user = await createAccount({fullName, email: registerEmail});
+            if (user.accountId) {
+                setAccountId(user.accountId);
+            }
+            setErrorMessage(user.message);
+            setLoading(false);
+        } catch (error) {
+            setErrorMessage("An error occurred. Please try again.");
+            console.log("Sign In error", error);
+        } finally {
+            setLoading(false);
+        }
     }
+
+    console.log("accountId: " , {accountId, errorMessage});
 
     return (
         <div className="flex flex-col items-center justify-center h-full">

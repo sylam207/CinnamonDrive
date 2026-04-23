@@ -20,8 +20,8 @@ const Layout = ({children}: {children: React.ReactNode}) => {
                         <span className="text-2xl font-bold">CinnamonDrive</span>
                     </div>
                     <div className="flex items-start gap-4 flex-col mt-8">
-                        <span className="font-bold text-[32px] text-oxford-blue">A Better Way to Store, Organize, and Access Your Files</span>
-                        <span className="text-lg text-oxford-blue">With it you can easily manage your files and folders, and access them from anywhere.</span>
+                        <span className="font-bold text-[32px] text-oxford-blue">Cloud Storage Feels Effortless</span>
+                        <span className="text-lg text-oxford-blue">Keep every file and folder in sync, searchable, and ready on any device.</span>
                         <Image src={HERO_IMAGE} width={450} height={450} alt="hero-image" className="mt-15"/>
                     </div>
                 </div>
